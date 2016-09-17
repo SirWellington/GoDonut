@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yW4-Ju-xSQ">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,13 +16,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="SEI-PY-S5E" customClass="LocationCell" customModule="GoDonut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationCell" rowHeight="140" id="SEI-PY-S5E" customClass="LocationCell" customModule="GoDonut" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="375" height="140"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SEI-PY-S5E" id="FPb-SR-0R7">
-                                    <frame key="frameInset" width="375" height="43"/>
+                                    <frame key="frameInset" width="375" height="139.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="example" translatesAutoresizingMaskIntoConstraints="NO" id="4PD-qe-gvJ"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O4m-1z-ZPl">
+                                            <color key="backgroundColor" white="1" alpha="0.40000000000000002" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i39-zE-Rv4">
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="O4m-1z-ZPl" firstAttribute="top" secondItem="FPb-SR-0R7" secondAttribute="top" id="0zr-LX-mwM"/>
+                                        <constraint firstItem="i39-zE-Rv4" firstAttribute="leading" secondItem="FPb-SR-0R7" secondAttribute="leadingMargin" id="3Zf-L4-P8o"/>
+                                        <constraint firstItem="i39-zE-Rv4" firstAttribute="centerY" secondItem="FPb-SR-0R7" secondAttribute="centerY" id="AVL-4y-rBx"/>
+                                        <constraint firstAttribute="trailing" secondItem="4PD-qe-gvJ" secondAttribute="trailing" id="Dfx-li-7dy"/>
+                                        <constraint firstItem="4PD-qe-gvJ" firstAttribute="top" secondItem="FPb-SR-0R7" secondAttribute="top" id="F7V-fz-7wF"/>
+                                        <constraint firstItem="O4m-1z-ZPl" firstAttribute="leading" secondItem="FPb-SR-0R7" secondAttribute="leading" id="QfK-0E-Ru7"/>
+                                        <constraint firstItem="i39-zE-Rv4" firstAttribute="trailing" secondItem="FPb-SR-0R7" secondAttribute="trailingMargin" id="UjJ-sM-u8k"/>
+                                        <constraint firstItem="4PD-qe-gvJ" firstAttribute="leading" secondItem="FPb-SR-0R7" secondAttribute="leading" id="Y6J-YQ-khW"/>
+                                        <constraint firstAttribute="bottom" secondItem="4PD-qe-gvJ" secondAttribute="bottom" id="cRw-4v-kdP"/>
+                                        <constraint firstAttribute="trailing" secondItem="O4m-1z-ZPl" secondAttribute="trailing" id="nWp-dI-KUy"/>
+                                        <constraint firstAttribute="bottom" secondItem="O4m-1z-ZPl" secondAttribute="bottom" id="oNK-qx-Zxl"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="businessImageView" destination="4PD-qe-gvJ" id="Ppg-a6-vV1"/>
+                                    <outlet property="businessNameLabel" destination="i39-zE-Rv4" id="rbh-u7-UPF"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -54,4 +83,7 @@
             <point key="canvasLocation" x="140" y="73.313343328335833"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="example" width="984" height="494"/>
+    </resources>
 </document>
