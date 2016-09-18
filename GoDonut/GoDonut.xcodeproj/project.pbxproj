@@ -13,6 +13,9 @@
 		154745611D8CBDD90026FED9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1547455F1D8CBDD90026FED9 /* LaunchScreen.storyboard */; };
 		1547456A1D8CBE220026FED9 /* AllLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154745691D8CBE220026FED9 /* AllLocationsViewController.swift */; };
 		1547456D1D8CBE5D0026FED9 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547456C1D8CBE5D0026FED9 /* LocationCell.swift */; };
+		155126F61D8F02CF000A8496 /* yelp.json in Resources */ = {isa = PBXBuildFile; fileRef = 155126F51D8F02CF000A8496 /* yelp.json */; };
+		155126FA1D8F0877000A8496 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155126F91D8F0877000A8496 /* JSON.swift */; };
+		15D01EF01D8F392000B1DFC1 /* YelpAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D01EEF1D8F392000B1DFC1 /* YelpAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		154745621D8CBDD90026FED9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		154745691D8CBE220026FED9 /* AllLocationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllLocationsViewController.swift; sourceTree = "<group>"; };
 		1547456C1D8CBE5D0026FED9 /* LocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
+		155126F51D8F02CF000A8496 /* yelp.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = yelp.json; sourceTree = "<group>"; };
+		155126F91D8F0877000A8496 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
+		15D01EEF1D8F392000B1DFC1 /* YelpAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +62,7 @@
 		154745551D8CBDD90026FED9 /* GoDonut */ = {
 			isa = PBXGroup;
 			children = (
+				155126F41D8F02C0000A8496 /* Data */,
 				1547456B1D8CBE2E0026FED9 /* Views */,
 				154745681D8CBE000026FED9 /* ViewControllers */,
 				154745561D8CBDD90026FED9 /* AppDelegate.swift */,
@@ -81,6 +88,16 @@
 				1547456C1D8CBE5D0026FED9 /* LocationCell.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		155126F41D8F02C0000A8496 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				155126F51D8F02CF000A8496 /* yelp.json */,
+				155126F91D8F0877000A8496 /* JSON.swift */,
+				15D01EEF1D8F392000B1DFC1 /* YelpAPI.swift */,
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,6 +163,7 @@
 				154745611D8CBDD90026FED9 /* LaunchScreen.storyboard in Resources */,
 				1547455E1D8CBDD90026FED9 /* Assets.xcassets in Resources */,
 				1547455C1D8CBDD90026FED9 /* Main.storyboard in Resources */,
+				155126F61D8F02CF000A8496 /* yelp.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +177,8 @@
 				1547456D1D8CBE5D0026FED9 /* LocationCell.swift in Sources */,
 				1547456A1D8CBE220026FED9 /* AllLocationsViewController.swift in Sources */,
 				154745571D8CBDD90026FED9 /* AppDelegate.swift in Sources */,
+				155126FA1D8F0877000A8496 /* JSON.swift in Sources */,
+				15D01EF01D8F392000B1DFC1 /* YelpAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +340,7 @@
 				154745671D8CBDD90026FED9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
