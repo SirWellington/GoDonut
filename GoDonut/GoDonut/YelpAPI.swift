@@ -40,8 +40,8 @@ struct Business {
 class Yelp {
     
     static var authToken: String?
-    static let sharedInstance = Yelp()
-    private init()
+    //static let sharedInstance = Yelp()
+    //private init()
     
     static let tokenURL: String = "https://api.yelp.com/oauth2/token"
     static let searchURL: String = "https://api.yelp.com/v3/businesses/search?term=donut&latitude="
@@ -124,9 +124,13 @@ class Yelp {
             do {
                 let jsonObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
                 guard let result = jsonObject as? NSDictionary else { return }
-                //print("YOMAMMA - \(result)")
-                guard let businesses = result["businesses"] as? [Any] else { return }
-                print(businesses)
+                guard let businesses = result["businesses"] as? NSArray else { return }
+                
+                for businessObject in businesses {
+                    guard let business = businessObject as? NSDictionary else { return }
+                    guard let businessName = business["name"] as? String else { return }
+                    print(businessName)
+                }
                 
             } catch {
                 
