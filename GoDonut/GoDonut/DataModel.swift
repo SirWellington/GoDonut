@@ -1,5 +1,5 @@
 //
-//  Helper.swift
+//  DataModel.swift
 //  GoDonut
 //
 //  Created by Brandon Ballentine on 9/19/16.
@@ -7,4 +7,10 @@
 //
 
 import Foundation
-import UIKit
+
+class DataModel {
+    var businessArray = [Business]()
+    
+    static let sharedInstance = DataModel()
+    
+}

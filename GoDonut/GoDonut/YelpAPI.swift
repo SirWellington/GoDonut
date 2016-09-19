@@ -72,6 +72,8 @@ class Yelp {
         let latString = String(lat)
         let longString = String(long)
         
+        var businessesArray: [Business] = []
+        
         let request = NSMutableURLRequest(url: NSURL(string: "\(Yelp.searchURL)\(latString)&longitude=\(longString)")! as URL,
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 10.0)
@@ -97,19 +99,18 @@ class Yelp {
             do {
                 let jsonObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
                 guard let result = jsonObject as? NSDictionary else { return }
-                //print(result)
                 guard let businesses = result["businesses"] as? NSArray else { return }
                 
                 for businessObject in businesses {
                     guard let business = businessObject as? NSDictionary else { return }
                     if let businessFromStruct = Business.fromDictionary(json: business) {
                         print(businessFromStruct.name)
+                        businessesArray.append(businessFromStruct)
+                        
                     } else {
                         print("didn't create business")
+                        return
                     }
-                    //guard let businessName = business["name"] as? String else { return }
-                    //print(businessName)
-                    // Create business here
                 }
                 
             } catch {
@@ -117,12 +118,10 @@ class Yelp {
             }
         })
 
-            
-        
         dataTask.resume()
         
         // Fix this part
-        return nil
+        return businessesArray
         
     }
     
