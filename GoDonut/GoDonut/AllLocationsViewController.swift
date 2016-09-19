@@ -15,6 +15,8 @@ class AllLocationsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Yelp.requestToken()
+        
         
     }
 
