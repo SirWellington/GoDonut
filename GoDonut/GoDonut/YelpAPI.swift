@@ -39,7 +39,18 @@ struct Business {
 
 class Yelp {
     
+    static var authToken: String?
+    static let sharedInstance = Yelp()
+    private init()
+    
     static let tokenURL: String = "https://api.yelp.com/oauth2/token"
+    static let searchURL: String = "https://api.yelp.com/v3/businesses/search?term=donut&latitude="
+    
+    // Remove this part later
+    static let token: String = "86XYD1szf7qtOPK1vFVowJLVeiEC96STQ6o9FgYGacolbZ6_DcoXtrcwEXcXQkJJLQ1-L8vYvhZMMRXebxKU1zszhdT-IFIu5BYil4aQnPJNNMrhcMAIA0dPoIfdV3Yx"
+    
+    // Add logic here
+    var accessToken: String?
     
         
     static func requestToken() {
@@ -52,7 +63,7 @@ class Yelp {
         postData.append("&client_secret=\(Configuration.appSecret)".data(using: String.Encoding.utf8)!)
         postData.append("&grant_type=client_credentials".data(using: String.Encoding.utf8)!)
         
-        let request = NSMutableURLRequest(url: NSURL(string: "https://api.yelp.com/oauth2/token")! as URL,
+        let request = NSMutableURLRequest(url: NSURL(string: tokenURL)! as URL,
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 10.0)
         request.httpMethod = "POST"
@@ -62,13 +73,11 @@ class Yelp {
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             
-            guard let data = data, error == nil else {                                                 // check for fundamental networking error
-                print("error=\(error)")
+            guard let data = data, error == nil else {                                                                 print("error=\(error)")
                 return
             }
             
-            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
-                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {                           print("statusCode should be 200, but is \(httpStatus.statusCode)")
                 print("response = \(response)")
             }
             
@@ -83,9 +92,57 @@ class Yelp {
         })
         
         dataTask.resume()
-    
-
     }
+    
+    static func getBusiness(lat: Double, long: Double) -> [Business]? {
+        
+        let latString = String(lat)
+        let longString = String(long)
+        
+        let request = NSMutableURLRequest(url: NSURL(string: "\(Yelp.searchURL)\(latString)&longitude=\(longString)")! as URL,
+                                          cachePolicy: .useProtocolCachePolicy,
+                                          timeoutInterval: 10.0)
+        
+        request.addValue("Bearer \(Yelp.token)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        
+        request.httpMethod = "GET"
+        
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+            
+            guard let data = data, error == nil else {                                                                 print("error=\(error)")
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {                           print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(response)")
+                
+                // Add code to get another authorization token
+            }
+            
+            do {
+                let jsonObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
+                guard let result = jsonObject as? NSDictionary else { return }
+                //print("YOMAMMA - \(result)")
+                guard let businesses = result["businesses"] as? [Any] else { return }
+                print(businesses)
+                
+            } catch {
+                
+            }
+        })
+
+            
+        
+        dataTask.resume()
+        
+        // Fix this part
+        return nil
+        
+    }
+    
+    
 }
 
 
