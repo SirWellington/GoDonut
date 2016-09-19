@@ -9,33 +9,6 @@
 import Foundation
 import UIKit
 
-struct Business {
-    
-    let name: String
-    let latitide: String
-    let longitude: String
-    let rating: String
-    let image: String
-    
-    static func from(dictionary: NSDictionary) -> Business? {
-        
-        guard let name = dictionary["name"] as? String,
-        let coordinatesDict = dictionary["coordinates"] as? NSDictionary,
-        let latitude = coordinatesDict["latitude"] as? String,
-        let longitude = coordinatesDict["longitude"] as? String,
-        let rating = dictionary["rating"] as? String,
-        let image = dictionary["image_url"] as? String
-        
-            else {
-                return nil
-        }
-        
-        // Add image code here later
-        
-        return Business(name: name, latitide: latitude, longitude: longitude, rating: rating, image: image)
-        
-    }
-}
 
 class Yelp {
     
@@ -124,12 +97,19 @@ class Yelp {
             do {
                 let jsonObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
                 guard let result = jsonObject as? NSDictionary else { return }
+                //print(result)
                 guard let businesses = result["businesses"] as? NSArray else { return }
                 
                 for businessObject in businesses {
                     guard let business = businessObject as? NSDictionary else { return }
-                    guard let businessName = business["name"] as? String else { return }
-                    print(businessName)
+                    if let businessFromStruct = Business.fromDictionary(json: business) {
+                        print(businessFromStruct.name)
+                    } else {
+                        print("didn't create business")
+                    }
+                    //guard let businessName = business["name"] as? String else { return }
+                    //print(businessName)
+                    // Create business here
                 }
                 
             } catch {

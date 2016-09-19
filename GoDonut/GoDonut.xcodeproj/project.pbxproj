@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		151D85351D90647200E62A06 /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D85341D90647200E62A06 /* Business.swift */; };
+		151D85371D90758B00E62A06 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D85361D90758B00E62A06 /* Helper.swift */; };
 		154745571D8CBDD90026FED9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154745561D8CBDD90026FED9 /* AppDelegate.swift */; };
 		1547455C1D8CBDD90026FED9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1547455A1D8CBDD90026FED9 /* Main.storyboard */; };
 		1547455E1D8CBDD90026FED9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1547455D1D8CBDD90026FED9 /* Assets.xcassets */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		151D85341D90647200E62A06 /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
+		151D85361D90758B00E62A06 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		154745531D8CBDD90026FED9 /* GoDonut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoDonut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		154745561D8CBDD90026FED9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1547455B1D8CBDD90026FED9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -91,8 +95,10 @@
 		155126F41D8F02C0000A8496 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				15D01EEF1D8F392000B1DFC1 /* YelpAPI.swift */,
 				15D01EF11D8F4EB000B1DFC1 /* Configuration.swift */,
+				151D85341D90647200E62A06 /* Business.swift */,
+				15D01EEF1D8F392000B1DFC1 /* YelpAPI.swift */,
+				151D85361D90758B00E62A06 /* Helper.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -171,8 +177,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				15D01EF21D8F4EB000B1DFC1 /* Configuration.swift in Sources */,
+				151D85371D90758B00E62A06 /* Helper.swift in Sources */,
 				1547456D1D8CBE5D0026FED9 /* LocationCell.swift in Sources */,
 				1547456A1D8CBE220026FED9 /* AllLocationsViewController.swift in Sources */,
+				151D85351D90647200E62A06 /* Business.swift in Sources */,
 				154745571D8CBDD90026FED9 /* AppDelegate.swift in Sources */,
 				15D01EF01D8F392000B1DFC1 /* YelpAPI.swift in Sources */,
 			);
