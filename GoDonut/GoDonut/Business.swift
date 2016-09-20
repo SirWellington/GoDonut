@@ -82,7 +82,6 @@ extension Business {
                 for businessObject in businesses {
                     guard let business = businessObject as? NSDictionary else { return }
                     if let businessFromStruct = Business(json: business) {
-                        //print(businessFromStruct.name)
                         businessArray.append(businessFromStruct)
                         
                     } else {

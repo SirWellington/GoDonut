@@ -75,7 +75,7 @@ class AllLocationsViewController: UITableViewController {
         
         async.addOperation {
             guard let myLocation = self.currentLocation else { return }
-            print("got location")
+            //print("got location")
             let myLat = myLocation.coordinate.latitude
             let myLong = myLocation.coordinate.longitude
             
@@ -96,8 +96,21 @@ class AllLocationsViewController: UITableViewController {
 
 extension AllLocationsViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //print("found location")
-        currentLocation = locations.first
+        
+        if currentLocation == nil {
+            currentLocation = locations.first
+            reload()
+        } else {
+            guard let latest = locations.first,
+                let distanceInMeters = currentLocation?.distance(from: latest)
+            else { return }
+            
+            if distanceInMeters > 200 {
+                currentLocation = latest
+                print("reloading because distance")
+                reload()
+            }
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
