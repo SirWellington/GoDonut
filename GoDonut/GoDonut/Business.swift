@@ -10,49 +10,44 @@
 import Foundation
 import UIKit
 
-class Business {
-    
+struct Business {
     
     let name: String
     let coordinates: (latitude: Double, longitude: Double)
     let rating: Double
     let imageURL: String
     
-    init(name: String, coordinates: (latitude: Double, longitude: Double), rating: Double, imageURL: String) {
-        self.name = name
-        self.coordinates = coordinates
-        self.rating = rating
-        self.imageURL = imageURL
-        
-    }
+}
+
+extension Business {
     
-    static func fromDictionary(json: NSDictionary) -> Business? {
-        
+    init?(json: NSDictionary){
         guard let name = json["name"] as? String,
-        let rating = json["rating"] as? Double,
-        let jsonCoordinates = json["coordinates"] as? NSDictionary,
-        let imageURL = json["image_url"] as? String
-        else {
-            return nil
+            let rating = json["rating"] as? Double,
+            let jsonCoordinates = json["coordinates"] as? NSDictionary,
+            let imageURL = json["image_url"] as? String
+            else {
+                return nil
         }
-        
         guard let latitude = jsonCoordinates["latitude"] as? Double,
-        let longitude = jsonCoordinates["longitude"] as? Double
+            let longitude = jsonCoordinates["longitude"] as? Double
             else {
                 return nil
         }
         
         let coordinates = (latitude, longitude)
         
-        return Business(name: name, coordinates: coordinates, rating: rating, imageURL: imageURL)
-        
+        self.name = name
+        self.coordinates = coordinates
+        self.rating = rating
+        self.imageURL = imageURL
     }
     
 }
 
 extension Business {
     
-    static func businesses(latitude: Double, longitude: Double, completion: ([Business]) -> Void) {
+    static func businesses(latitude: Double, longitude: Double, completionFunc: @escaping ([Business]) -> Void) {
         
         // Convert latitude and longitude to Strings
         let latAsString = String(latitude)
@@ -74,6 +69,34 @@ extension Business {
         // Create Session
         let session = URLSession.shared
         
+        //Create Task
+        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+            
+            var businessArray: [Business] = []
+            
+            if let data = data,
+                let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
+                guard let result = jsonObject as? NSDictionary else { return }
+                guard let businesses = result["businesses"] as? NSArray else { return }
+                
+                for businessObject in businesses {
+                    guard let business = businessObject as? NSDictionary else { return }
+                    if let businessFromStruct = Business(json: business) {
+                        //print(businessFromStruct.name)
+                        businessArray.append(businessFromStruct)
+                        
+                    } else {
+                        print("didn't create business")
+                        return
+                    }
+                }
+
+            }
+            completionFunc(businessArray)
+        })
+        
+        dataTask.resume()
+
+
     }
-    
 }

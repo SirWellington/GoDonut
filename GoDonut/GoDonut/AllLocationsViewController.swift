@@ -39,7 +39,11 @@ class AllLocationsViewController: UITableViewController {
         refreshControl?.tintColor = UIColor.white
         refreshControl?.addTarget(self, action: #selector(self.reload), for: .valueChanged)
         
-        reload()
+        // Setup TableView
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 140.0
+        
+        //reload()
         
     }
 
@@ -75,12 +79,9 @@ class AllLocationsViewController: UITableViewController {
             let myLat = myLocation.coordinate.latitude
             let myLong = myLocation.coordinate.longitude
             
-            if let newBusinesses = Yelp.getBusiness(lat: myLat, long: myLong) {
-                self.businesses = newBusinesses
-                print("Able to get businesses")
+            Business.businesses(latitude: myLat, longitude: myLong) { businesses in
+                self.businesses = businesses
                 print(self.businesses)
-            } else {
-                print("unable to get businesses")
             }
             
             self.main.addOperation {
@@ -95,6 +96,7 @@ class AllLocationsViewController: UITableViewController {
 
 extension AllLocationsViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        //print("found location")
         currentLocation = locations.first
     }
     

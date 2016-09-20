@@ -14,7 +14,6 @@
 		154745611D8CBDD90026FED9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1547455F1D8CBDD90026FED9 /* LaunchScreen.storyboard */; };
 		1547456A1D8CBE220026FED9 /* AllLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154745691D8CBE220026FED9 /* AllLocationsViewController.swift */; };
 		1547456D1D8CBE5D0026FED9 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547456C1D8CBE5D0026FED9 /* LocationCell.swift */; };
-		15D01EF01D8F392000B1DFC1 /* YelpAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D01EEF1D8F392000B1DFC1 /* YelpAPI.swift */; };
 		15D01EF21D8F4EB000B1DFC1 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D01EF11D8F4EB000B1DFC1 /* Configuration.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +27,6 @@
 		154745621D8CBDD90026FED9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		154745691D8CBE220026FED9 /* AllLocationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllLocationsViewController.swift; sourceTree = "<group>"; };
 		1547456C1D8CBE5D0026FED9 /* LocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
-		15D01EEF1D8F392000B1DFC1 /* YelpAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpAPI.swift; sourceTree = "<group>"; };
 		15D01EF11D8F4EB000B1DFC1 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,7 +92,6 @@
 			isa = PBXGroup;
 			children = (
 				15D01EF11D8F4EB000B1DFC1 /* Configuration.swift */,
-				15D01EEF1D8F392000B1DFC1 /* YelpAPI.swift */,
 				151D85341D90647200E62A06 /* Business.swift */,
 			);
 			name = Data;
@@ -178,7 +175,6 @@
 				1547456A1D8CBE220026FED9 /* AllLocationsViewController.swift in Sources */,
 				151D85351D90647200E62A06 /* Business.swift in Sources */,
 				154745571D8CBDD90026FED9 /* AppDelegate.swift in Sources */,
-				15D01EF01D8F392000B1DFC1 /* YelpAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
