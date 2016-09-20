@@ -82,12 +82,12 @@ class AllLocationsViewController: UITableViewController {
             Business.businesses(latitude: myLat, longitude: myLong) { businesses in
                 self.businesses = businesses
                 print(self.businesses)
+                self.main.addOperation {
+                    self.tableView.reloadData()
+                    self.refreshControl?.endRefreshing()
+                }
             }
             
-            self.main.addOperation {
-                self.tableView.reloadData()
-                self.refreshControl?.endRefreshing()
-            }
         }
 
     }
