@@ -13,8 +13,6 @@ import UIKit
 class Yelp {
     
     static var authToken: String?
-    //static let sharedInstance = Yelp()
-    //private init()
     
     static let tokenURL: String = "https://api.yelp.com/oauth2/token"
     static let searchURL: String = "https://api.yelp.com/v3/businesses/search?term=donut&latitude="
@@ -112,6 +110,7 @@ class Yelp {
                         return
                     }
                 }
+                
                 
             } catch {
                 
