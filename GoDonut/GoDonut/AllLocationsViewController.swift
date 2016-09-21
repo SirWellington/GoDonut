@@ -42,7 +42,7 @@ class AllLocationsViewController: UITableViewController {
         
         // Setup Refresh Control
         refreshControl = UIRefreshControl()
-        refreshControl?.backgroundColor = UIColor.red
+        refreshControl?.backgroundColor = UIColor(red: 0.878, green: 0.871, blue: 0.914, alpha: 1.000)
         refreshControl?.tintColor = UIColor.white
         refreshControl?.addTarget(self, action: #selector(self.reload), for: .valueChanged)
         
