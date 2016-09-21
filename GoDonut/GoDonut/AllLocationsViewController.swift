@@ -27,6 +27,13 @@ class AllLocationsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Setup Navigation Title Image
+        let titleImageView = UIImageView(image: #imageLiteral(resourceName: "GoLogo"))
+        titleImageView.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        titleImageView.contentMode = UIViewContentMode.scaleAspectFit
+        
+        navigationItem.titleView = titleImageView
+                
         // Setup Location Manager
         locationManager = CLLocationManager()
         locationManager?.delegate = self
