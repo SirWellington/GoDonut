@@ -64,8 +64,16 @@ class AllLocationsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! LocationCell
         let business = businesses[indexPath.row] 
+        
         // Configure the cell...
         cell.businessNameLabel.text = business.name
+        
+        if let imageURL = URL(string: business.imageURL),
+            let image = loadImage(from: imageURL) {
+            cell.businessImageView.image = image
+        } else {
+            cell.businessImageView.image = #imageLiteral(resourceName: "example")
+        }
 
         return cell
     }
@@ -90,6 +98,14 @@ class AllLocationsViewController: UITableViewController {
             
         }
 
+    }
+    
+    private func loadImage(from url: URL) -> UIImage? {
+        if let data = try? Data(contentsOf: url) {
+            return UIImage(data: data)
+        }
+        
+        return nil
     }
     
 }
