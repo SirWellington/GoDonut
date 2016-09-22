@@ -14,6 +14,7 @@ class LocationDetailsViewController: UITableViewController {
     
     // Business
     var selectedBusiness: Business!
+    var businessLocations: [MKCoordinateRegion] = []
     
     // MapView
     @IBOutlet weak var mapView: MKMapView!
@@ -30,6 +31,11 @@ class LocationDetailsViewController: UITableViewController {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(businessLocation.coordinate, regionRadius, regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
         mapView.delegate = self
+        
+        // Add pin for business
+        let pin = MapLocation(title: selectedBusiness.name, subtitle: "Rated: \(selectedBusiness.rating) donuts", coordinate: CLLocationCoordinate2D(latitude: selectedBusiness.coordinates.latitude, longitude: selectedBusiness.coordinates.longitude))
+        
+        mapView.addAnnotation(pin)
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
@@ -64,7 +70,19 @@ class LocationDetailsViewController: UITableViewController {
     }
 
     @IBAction func shareButtonPressed(_ sender: AnyObject) {
-        print("Share button pressed")
+        guard let business = selectedBusiness else { return }
+        var activities: [Any]  = []
+        let message = "I'm \"Going Donuts\" at \(business.name)!"
+        activities.append(message)
+        
+        let imageURL = URL(string: business.imageURL)
+        if let image = loadImage(from: imageURL!) {
+            activities.append(image)
+        }
+        
+        let shareSheet = UIActivityViewController(activityItems: activities, applicationActivities: nil)
+        
+        present(shareSheet, animated: true, completion: nil)
     }
 
 }
@@ -78,9 +96,41 @@ extension LocationDetailsViewController: CLLocationManagerDelegate {
 }
 
 extension LocationDetailsViewController: MKMapViewDelegate {
-    func mapViewWillStartRenderingMap(_ mapView: MKMapView) {
-        print("rendering")
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        if let annotation = annotation as? MapLocation {
+            let identifier = "pin"
+            var view: MKPinAnnotationView
+            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+                as? MKPinAnnotationView {
+                dequeuedView.annotation = annotation
+                view = dequeuedView
+            } else {
+                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                view.canShowCallout = true
+                view.calloutOffset = CGPoint(x: -5, y: 5)
+            }
+            
+            view.pinTintColor = UIColor(red: 0.604, green: 0.584, blue: 0.729, alpha: 1.000)
+            
+            return view
+        }
+        return nil
+        
     }
+    
+    func loadImage(from url: URL) -> UIImage? {
+        if let data = try? Data(contentsOf: url) {
+            return UIImage(data: data)
+        }
+        
+        return nil
+    }
+
 }
 
 
