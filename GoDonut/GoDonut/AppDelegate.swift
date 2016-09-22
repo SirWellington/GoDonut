@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        customizeAppearance()
+        
         return true
     }
 
@@ -40,6 +42,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    func customizeAppearance() {
+        UINavigationBar.appearance().tintColor = UIColor(red: 0.584, green: 0.565, blue: 0.706, alpha: 1.000)
+        UINavigationBar.appearance().isTranslucent = false
+        
+        let attributes = [
+            NSForegroundColorAttributeName: UIColor(red: 0.129, green: 0.129, blue: 0.129, alpha: 1.000),
+            NSFontAttributeName: UIFont(name: "AvenirNext-Bold", size: 19)!
+        ]
+        
+        
+        UINavigationBar.appearance().titleTextAttributes = attributes
+    }
+
 
 
 }

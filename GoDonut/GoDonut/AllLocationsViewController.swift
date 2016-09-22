@@ -17,7 +17,9 @@ class AllLocationsViewController: UITableViewController {
         operationQueue.maxConcurrentOperationCount = 10
         return operationQueue
     }()
-
+    
+    // Custom Spinner
+    var customView: UIView!
     
     var locationManager: CLLocationManager?
     var currentLocation: CLLocation?
@@ -46,9 +48,11 @@ class AllLocationsViewController: UITableViewController {
         refreshControl?.tintColor = UIColor.white
         refreshControl?.addTarget(self, action: #selector(self.reload), for: .valueChanged)
         
+        loadCustomRefreshContents()
+        
         // Setup TableView
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 140.0
+        tableView.estimatedRowHeight = 220.0
         
         //reload()
         
@@ -109,10 +113,39 @@ class AllLocationsViewController: UITableViewController {
     
     private func loadImage(from url: URL) -> UIImage? {
         if let data = try? Data(contentsOf: url) {
-            return UIImage(data: data)
+            // Convert to grayscale
+            let colorImage = UIImage(data: data)
+            let bwImage = convertToGrayScale(image: colorImage!)
+            // End convert to grayscale
+            //return UIImage(data: data)
+            return bwImage
         }
         
         return nil
+    }
+    
+    func convertToGrayScale(image: UIImage) -> UIImage {
+        //let imageRect:CGRect = CGRectMake(0, 0, image.size.width, image.size.height)
+        let imageRect:CGRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+        let colorSpace = CGColorSpaceCreateDeviceGray()
+        let width = image.size.width
+        let height = image.size.height
+        
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue)
+        let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
+        context?.draw(image.cgImage!, in: imageRect)
+        //CGContextDrawImage(context, imageRect, image.cgImage)
+        let imageRef = context!.makeImage()
+        let newImage = UIImage(cgImage: imageRef!)
+        
+        return newImage
+    }
+    
+    func loadCustomRefreshContents() {
+        let refreshContents = Bundle.main.loadNibNamed("RefreshContents", owner: self, options: nil)
+        customView = refreshContents?[0] as! UIView
+        customView.frame = (refreshControl?.bounds)!
+        refreshControl?.addSubview(customView)
     }
     
 }
