@@ -113,12 +113,7 @@ class AllLocationsViewController: UITableViewController {
     
     private func loadImage(from url: URL) -> UIImage? {
         if let data = try? Data(contentsOf: url) {
-            // Convert to grayscale
-            let colorImage = UIImage(data: data)
-            let bwImage = convertToGrayScale(image: colorImage!)
-            // End convert to grayscale
-            //return UIImage(data: data)
-            return bwImage
+            return UIImage(data: data)
         }
         
         return nil
