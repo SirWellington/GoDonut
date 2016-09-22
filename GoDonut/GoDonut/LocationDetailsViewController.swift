@@ -12,6 +12,16 @@ import CoreLocation
 
 class LocationDetailsViewController: UITableViewController {
     
+    private let main = OperationQueue.main
+    private let async: OperationQueue = {
+        let operationQueue = OperationQueue()
+        operationQueue.maxConcurrentOperationCount = 10
+        return operationQueue
+    }()
+    
+    // Review array
+    var reviews: [Review] = []
+    
     // Business
     var selectedBusiness: Business!
     var businessLocations: [MKCoordinateRegion] = []
@@ -40,8 +50,29 @@ class LocationDetailsViewController: UITableViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        
+        reload()
 
     }
+    
+    func reload() {
+        print("reload called")
+        async.addOperation {
+            
+            Review.reviews(businessID: self.selectedBusiness.id) { fetchedReviews in
+                self.reviews = fetchedReviews
+                print("Got reviews")
+            
+                self.main.addOperation {
+                    self.tableView.reloadData()
+                    //self.refreshControl?.endRefreshing()
+                }
+            }
+            
+        }
+        
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

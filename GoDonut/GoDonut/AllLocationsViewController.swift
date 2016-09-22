@@ -124,23 +124,6 @@ class AllLocationsViewController: UITableViewController {
         return nil
     }
     
-    func convertToGrayScale(image: UIImage) -> UIImage {
-        //let imageRect:CGRect = CGRectMake(0, 0, image.size.width, image.size.height)
-        let imageRect:CGRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
-        let colorSpace = CGColorSpaceCreateDeviceGray()
-        let width = image.size.width
-        let height = image.size.height
-        
-        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue)
-        let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
-        context?.draw(image.cgImage!, in: imageRect)
-        //CGContextDrawImage(context, imageRect, image.cgImage)
-        let imageRef = context!.makeImage()
-        let newImage = UIImage(cgImage: imageRef!)
-        
-        return newImage
-    }
-    
     func loadCustomRefreshContents() {
         let refreshContents = Bundle.main.loadNibNamed("RefreshContents", owner: self, options: nil)
         customView = refreshContents?[0] as! UIView

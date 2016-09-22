@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 struct Business {
-    
+    let id: String
     let name: String
     let coordinates: (latitude: Double, longitude: Double)
     let rating: Double
@@ -23,6 +23,7 @@ extension Business {
     
     init?(json: NSDictionary){
         guard let name = json["name"] as? String,
+            let id = json["id"] as? String,
             let rating = json["rating"] as? Double,
             let jsonCoordinates = json["coordinates"] as? NSDictionary,
             let imageURL = json["image_url"] as? String
@@ -38,6 +39,7 @@ extension Business {
         let coordinates = (latitude, longitude)
         
         self.name = name
+        self.id = id
         self.coordinates = coordinates
         self.rating = rating
         self.imageURL = imageURL
@@ -82,12 +84,10 @@ extension Business {
                 for businessObject in businesses {
                     guard let business = businessObject as? NSDictionary else { return }
                     if let businessFromStruct = Business(json: business) {
-                        print("business from struct")
+                        //print("business from struct")
                         businessArray.append(businessFromStruct)
-                        print("appended")
                     } else {
                         print("didn't create business")
-                        //return
                     }
                 }
 
