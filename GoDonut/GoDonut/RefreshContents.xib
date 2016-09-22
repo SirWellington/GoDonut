@@ -9,13 +9,13 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="QMS-Wj-hkM">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="donut-spinner" translatesAutoresizingMaskIntoConstraints="NO" id="9GH-Qd-P8N">
                     <constraints>
-                        <constraint firstAttribute="width" constant="60" id="I0G-z1-bDn"/>
-                        <constraint firstAttribute="height" constant="60" id="hxJ-hC-wjf"/>
+                        <constraint firstAttribute="width" constant="40" id="I0G-z1-bDn"/>
+                        <constraint firstAttribute="height" constant="40" id="hxJ-hC-wjf"/>
                     </constraints>
                 </imageView>
             </subviews>
@@ -23,7 +23,6 @@
             <constraints>
                 <constraint firstItem="9GH-Qd-P8N" firstAttribute="centerY" secondItem="QMS-Wj-hkM" secondAttribute="centerY" id="3OG-us-ggm"/>
                 <constraint firstItem="9GH-Qd-P8N" firstAttribute="centerX" secondItem="QMS-Wj-hkM" secondAttribute="centerX" id="VKB-rp-bFj"/>
-                <constraint firstItem="9GH-Qd-P8N" firstAttribute="centerX" secondItem="QMS-Wj-hkM" secondAttribute="centerX" id="zda-TW-N6y"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
