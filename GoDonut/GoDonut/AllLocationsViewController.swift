@@ -90,7 +90,8 @@ class AllLocationsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "ShowDetail", sender: self)
+        let selectedBusiness = businesses[indexPath.row]
+        performSegue(withIdentifier: "ShowDetail", sender: selectedBusiness)
     }
     
     func reload() {
@@ -147,7 +148,19 @@ class AllLocationsViewController: UITableViewController {
         refreshControl?.addSubview(customView)
     }
     
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowDetail" {
+            let businessDetailVC = segue.destination as! LocationDetailsViewController
+            businessDetailVC.selectedBusiness = (sender as! Business)
+            
+        }
+    }
+    
 }
+
+
 
 extension AllLocationsViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

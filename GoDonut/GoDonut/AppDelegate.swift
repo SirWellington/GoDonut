@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let attributes = [
             NSForegroundColorAttributeName: UIColor(red: 0.129, green: 0.129, blue: 0.129, alpha: 1.000),
-            NSFontAttributeName: UIFont(name: "AvenirNext-Bold", size: 19)!
+            NSFontAttributeName: UIFont(name: "AvenirNext-Medium", size: 19)!
         ]
         
         

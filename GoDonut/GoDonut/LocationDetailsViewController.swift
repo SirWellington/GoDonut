@@ -12,6 +12,9 @@ import CoreLocation
 
 class LocationDetailsViewController: UITableViewController {
     
+    // Business
+    var selectedBusiness: Business!
+    
     // MapView
     @IBOutlet weak var mapView: MKMapView!
     let locationManager = CLLocationManager()
@@ -19,9 +22,17 @@ class LocationDetailsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Setup Location Manager
+        self.title = selectedBusiness.name
+        
+        // Setup map and location
+        let businessLocation = CLLocation(latitude: selectedBusiness.coordinates.latitude, longitude: selectedBusiness.coordinates.longitude)
+        let regionRadius: CLLocationDistance = 500
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(businessLocation.coordinate, regionRadius, regionRadius)
+        mapView.setRegion(coordinateRegion, animated: true)
         mapView.delegate = self
+        
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
 
     }
@@ -58,11 +69,20 @@ class LocationDetailsViewController: UITableViewController {
 
 }
 
-extension LocationDetailsViewController: MKMapViewDelegate {
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+extension LocationDetailsViewController: CLLocationManagerDelegate {
+    private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
             mapView.showsUserLocation = true
         }
     }
-
 }
+
+extension LocationDetailsViewController: MKMapViewDelegate {
+    func mapViewWillStartRenderingMap(_ mapView: MKMapView) {
+        print("rendering")
+    }
+}
+
+
+
+
