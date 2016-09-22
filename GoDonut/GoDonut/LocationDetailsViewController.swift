@@ -72,7 +72,7 @@ class LocationDetailsViewController: UITableViewController {
     @IBAction func shareButtonPressed(_ sender: AnyObject) {
         guard let business = selectedBusiness else { return }
         var activities: [Any]  = []
-        let message = "I'm \"Going Donuts\" at \(business.name)!"
+        let message = "I'm \"Going 🍩\" at \(business.name)!"
         activities.append(message)
         
         let imageURL = URL(string: business.imageURL)
