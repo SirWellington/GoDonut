@@ -9,6 +9,9 @@
 import UIKit
 
 class ReviewCell: UITableViewCell {
+    
+    @IBOutlet weak var userLabel: UILabel!
+    @IBOutlet weak var reviewLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

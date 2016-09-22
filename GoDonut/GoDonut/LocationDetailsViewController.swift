@@ -33,6 +33,10 @@ class LocationDetailsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Setup tableview
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 80.0
+        
         self.title = selectedBusiness.name
         
         // Setup map and location
@@ -89,19 +93,30 @@ class LocationDetailsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {
-            return 3
+            return reviews.count
         } else {
-            return 1
+            return 0
         }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath)
+        
+        if indexPath.section == 0 {
+            let review = reviews[indexPath.row]
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath) as! ReviewCell
+            
+            cell.userLabel.text = "\(review.username) - "
+            cell.reviewLabel.text = review.text
+            
+            return cell
+        }
+        
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath) as! ImagesCell
+            
+            return cell
+        }
 
-        // Configure the cell...
-        cell.textLabel?.text = "Some stuff goes here"
-
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

@@ -12,22 +12,19 @@ import UIKit
 struct Review {
     let text: String
     let username: String
-    let userImage: String
 }
 
 extension Review {
     init?(json: NSDictionary){
         guard let text = json["text"] as? String,
-            let user = json["rating"] as? NSDictionary,
-            let username = user["name"] as? String,
-            let userImage = user["image_url"] as? String
+            let user = json["user"] as? NSDictionary,
+            let username = user["name"] as? String
             else {
                 return nil
         }
         
         self.text = text
         self.username = username
-        self.userImage = userImage
     }
 }
 
@@ -35,20 +32,40 @@ extension Review {
     static func reviews(businessID: String, completionFunc: @escaping ([Review]) -> Void) {
         
         // Create Session
-        let baseURL = URL(string: "https://api.yelp.com/v3/businesses/\(businessID)/reviews")
+        let reviewURL = URL(string: "https://api.yelp.com/v3/businesses/\(businessID)/reviews")
+        
+        let request = NSMutableURLRequest(url: reviewURL!)
+        request.addValue(Configuration.token, forHTTPHeaderField: "Authorization")
+        request.addValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        
         let session = URLSession.shared
-        let task = session.dataTask(with: baseURL!, completionHandler: { (data, response, error) -> Void in
+        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+            
             var reviewArray: [Review] = []
             
-            guard let data = data else { print("no good"); return }
-            
-            print(data)
+            if let data = data,
+                let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
+                
+                guard let result = jsonObject as? NSDictionary else { return }
+                guard let reviewData = result["reviews"] as? NSArray else { return }
+                //print(reviewData)
+                for rev in reviewData {
+                    guard let review = rev as? NSDictionary else { return }
+                    //print(review)
+                    if let reviewFromStruct = Review(json: review) {
+                        //print("made this far")
+                        reviewArray.append(reviewFromStruct)
+                    } else {
+                        print("problem parsing")
+                    }
+                }
+            }
         
         completionFunc(reviewArray)
             
         })
         
-        task.resume()
+        dataTask.resume()
     }
 
 }
