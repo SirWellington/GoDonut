@@ -52,21 +52,33 @@ class LocationDetailsViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 3
+        
+        if section == 0 {
+            return 3
+        } else {
+            return 1
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = "Something"
+        cell.textLabel?.text = "Some stuff goes here"
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "Customer Reviews"
+        } else {
+            return "Customer Images"
+        }
     }
 
     @IBAction func shareButtonPressed(_ sender: AnyObject) {
