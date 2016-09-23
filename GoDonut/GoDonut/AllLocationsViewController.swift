@@ -83,9 +83,7 @@ class AllLocationsViewController: UITableViewController {
         let midX = self.tableView.frame.size.width / 2.0
         let donutHeight = self.donutSpinner.bounds.size.height
         let halfDonutHeight = donutHeight / 2
-        
-        //var pullRatio = min( max(pullDistance, 0.0), 100.0) / 100.0
-        
+                
         let spinnerY = pullDistance / 2 - halfDonutHeight
         let spinnerX = midX - halfDonutHeight
         

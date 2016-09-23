@@ -21,6 +21,7 @@ class LocationDetailsViewController: UITableViewController {
         
     // Review array
     var reviews: [Review] = []
+    var businessImages: [UIImage] = []
     
     // Business
     var selectedBusiness: Business!
@@ -73,6 +74,18 @@ class LocationDetailsViewController: UITableViewController {
                 }
             }
             
+        }
+        
+        async.addOperation {
+            BusinessImage.images(businessID: self.selectedBusiness.id) { fetchedImages in
+                self.businessImages = fetchedImages
+                print("Got images")
+                print(self.businessImages.count)
+                
+                self.main.addOperation {
+                    self.tableView.reloadData()
+                }
+            }
         }
         
     }
