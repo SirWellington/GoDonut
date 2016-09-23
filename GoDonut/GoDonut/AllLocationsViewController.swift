@@ -61,6 +61,9 @@ class AllLocationsViewController: UITableViewController {
         
     }
     
+    // MARK: - Custom Refresh Controll
+    // Setup initial views
+    
     func setupRefreshControl() {
         refreshControl = UIRefreshControl()
         refreshLoadingView = UIView(frame: self.refreshControl!.bounds)
@@ -79,6 +82,30 @@ class AllLocationsViewController: UITableViewController {
         self.isRefreshIconsOverlap = false
         
         refreshControl?.addTarget(self, action: #selector(self.reload), for: .valueChanged)
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //let reFreshWidth = self.tableView.frame.width
+        var refreshBounds = self.refreshControl!.bounds
+        let pullDistance = max(0.0, -self.refreshControl!.frame.origin.y)
+        let midX = self.tableView.frame.size.width / 2.0
+        let donutHeight = self.donutSpinner.bounds.size.height
+        let halfDonutHeight = donutHeight / 2
+        
+        var pullRatio = min( max(pullDistance, 0.0), 100.0) / 100.0
+        
+        var spinnerY = pullDistance / 2 - halfDonutHeight
+        var spinnerX = midX - halfDonutHeight
+        
+        var spinnerFrame = self.donutSpinner.frame
+        spinnerFrame.origin.x = spinnerX
+        spinnerFrame.origin.y = spinnerY
+        
+        self.donutSpinner.frame = spinnerFrame
+        
+        refreshBounds.size.height = pullDistance
+        self.refreshLoadingView.frame = refreshBounds
+        
     }
 
     override func didReceiveMemoryWarning() {
