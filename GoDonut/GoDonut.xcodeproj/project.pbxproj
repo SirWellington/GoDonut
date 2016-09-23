@@ -18,7 +18,6 @@
 		1547456A1D8CBE220026FED9 /* AllLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154745691D8CBE220026FED9 /* AllLocationsViewController.swift */; };
 		1547456D1D8CBE5D0026FED9 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547456C1D8CBE5D0026FED9 /* LocationCell.swift */; };
 		1552D78A1D945BA500A24245 /* MapLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1552D7891D945BA500A24245 /* MapLocation.swift */; };
-		15BD920B1D93381C000E3F59 /* RefreshContents.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15BD920A1D93381C000E3F59 /* RefreshContents.xib */; };
 		15CC10EF1D94201F007AE9C3 /* LocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CC10EE1D94201F007AE9C3 /* LocationDetailsViewController.swift */; };
 		15D01EF21D8F4EB000B1DFC1 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D01EF11D8F4EB000B1DFC1 /* Configuration.swift */; };
 /* End PBXBuildFile section */
@@ -37,7 +36,6 @@
 		154745691D8CBE220026FED9 /* AllLocationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllLocationsViewController.swift; sourceTree = "<group>"; };
 		1547456C1D8CBE5D0026FED9 /* LocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		1552D7891D945BA500A24245 /* MapLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapLocation.swift; sourceTree = "<group>"; };
-		15BD920A1D93381C000E3F59 /* RefreshContents.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RefreshContents.xib; sourceTree = "<group>"; };
 		15CC10EE1D94201F007AE9C3 /* LocationDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationDetailsViewController.swift; sourceTree = "<group>"; };
 		15D01EF11D8F4EB000B1DFC1 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,7 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				1547456C1D8CBE5D0026FED9 /* LocationCell.swift */,
-				15BD920A1D93381C000E3F59 /* RefreshContents.xib */,
 				153098F21D9481E800924091 /* ReviewCell.swift */,
 				153098F41D9481F800924091 /* ImagesCell.swift */,
 			);
@@ -176,7 +173,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				154745611D8CBDD90026FED9 /* LaunchScreen.storyboard in Resources */,
-				15BD920B1D93381C000E3F59 /* RefreshContents.xib in Resources */,
 				1547455E1D8CBDD90026FED9 /* Assets.xcassets in Resources */,
 				1547455C1D8CBDD90026FED9 /* Main.storyboard in Resources */,
 			);

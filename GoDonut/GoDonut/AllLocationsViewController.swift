@@ -18,8 +18,11 @@ class AllLocationsViewController: UITableViewController {
         return operationQueue
     }()
     
-    // Custom Spinner
-    var customView: UIView!
+    // Custom Reloading Spinner
+    var refreshLoadingView: UIView!
+    var donutSpinner: UIImageView!
+    var isRefreshIconsOverlap = false
+    var isRefreshingAnimating = false
     
     var locationManager: CLLocationManager?
     var currentLocation: CLLocation?
@@ -42,13 +45,13 @@ class AllLocationsViewController: UITableViewController {
         locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         locationManager?.requestWhenInUseAuthorization()
         
-        // Setup Refresh Control
-        refreshControl = UIRefreshControl()
-        refreshControl?.backgroundColor = UIColor(red: 0.878, green: 0.871, blue: 0.914, alpha: 1.000)
-        refreshControl?.tintColor = UIColor.white
-        refreshControl?.addTarget(self, action: #selector(self.reload), for: .valueChanged)
+        setupRefreshControl()
         
-        loadCustomRefreshContents()
+//        // Setup Refresh Control
+//        refreshControl = UIRefreshControl()
+//        refreshControl?.backgroundColor = UIColor(red: 0.878, green: 0.871, blue: 0.914, alpha: 1.000)
+//        refreshControl?.tintColor = UIColor.white
+//        refreshControl?.addTarget(self, action: #selector(self.reload), for: .valueChanged)
         
         // Setup TableView
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -56,6 +59,26 @@ class AllLocationsViewController: UITableViewController {
         
         //reload()
         
+    }
+    
+    func setupRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshLoadingView = UIView(frame: self.refreshControl!.bounds)
+        refreshLoadingView.backgroundColor = UIColor.clear
+        refreshControl?.backgroundColor = UIColor(red: 0.878, green: 0.871, blue: 0.914, alpha: 1.000)
+        
+        self.donutSpinner = UIImageView(image: #imageLiteral(resourceName: "donut-spinner"))
+        self.refreshLoadingView.addSubview(donutSpinner)
+        self.refreshLoadingView.clipsToBounds = true
+        
+        self.refreshControl?.addSubview(refreshLoadingView)
+        
+        refreshControl?.tintColor = UIColor.clear
+        
+        self.isRefreshingAnimating = false
+        self.isRefreshIconsOverlap = false
+        
+        refreshControl?.addTarget(self, action: #selector(self.reload), for: .valueChanged)
     }
 
     override func didReceiveMemoryWarning() {
@@ -124,12 +147,6 @@ class AllLocationsViewController: UITableViewController {
         return nil
     }
     
-    func loadCustomRefreshContents() {
-        let refreshContents = Bundle.main.loadNibNamed("RefreshContents", owner: self, options: nil)
-        customView = refreshContents?[0] as! UIView
-        customView.frame = (refreshControl?.bounds)!
-        refreshControl?.addSubview(customView)
-    }
     
     // MARK: - Navigation
     
