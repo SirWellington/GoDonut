@@ -47,17 +47,9 @@ class AllLocationsViewController: UITableViewController {
         
         setupRefreshControl()
         
-//        // Setup Refresh Control
-//        refreshControl = UIRefreshControl()
-//        refreshControl?.backgroundColor = UIColor(red: 0.878, green: 0.871, blue: 0.914, alpha: 1.000)
-//        refreshControl?.tintColor = UIColor.white
-//        refreshControl?.addTarget(self, action: #selector(self.reload), for: .valueChanged)
-        
         // Setup TableView
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 220.0
-        
-        //reload()
         
     }
     
@@ -92,10 +84,10 @@ class AllLocationsViewController: UITableViewController {
         let donutHeight = self.donutSpinner.bounds.size.height
         let halfDonutHeight = donutHeight / 2
         
-        var pullRatio = min( max(pullDistance, 0.0), 100.0) / 100.0
+        //var pullRatio = min( max(pullDistance, 0.0), 100.0) / 100.0
         
-        var spinnerY = pullDistance / 2 - halfDonutHeight
-        var spinnerX = midX - halfDonutHeight
+        let spinnerY = pullDistance / 2 - halfDonutHeight
+        let spinnerX = midX - halfDonutHeight
         
         var spinnerFrame = self.donutSpinner.frame
         spinnerFrame.origin.x = spinnerX
@@ -217,8 +209,6 @@ class AllLocationsViewController: UITableViewController {
     }
     
 }
-
-
 
 extension AllLocationsViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
