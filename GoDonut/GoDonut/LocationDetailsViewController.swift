@@ -130,17 +130,19 @@ class LocationDetailsViewController: UITableViewController {
             // Add location images
             cell.userPhotoScrollView.isPagingEnabled = true
             cell.userPhotoScrollView.alwaysBounceVertical = false
-            for i in (0...2) {
-                let xPosition = Double(i) * Double(self.view.frame.size.width)
-                let imageView = UIImageView(frame: CGRect(x: xPosition, y: 0, width: Double(self.view.frame.size.width), height: 200))
-                imageView.image = #imageLiteral(resourceName: "example")
-                imageView.contentMode = UIViewContentMode.scaleAspectFill
-                imageView.clipsToBounds = true
-                cell.userPhotoScrollView.addSubview(imageView)
+            
+            if self.businessImages.count > 0 {
+                for i in (0...self.businessImages.count - 1) {
+                    let xPosition = Double(i) * Double(self.view.frame.size.width)
+                    let imageView = UIImageView(frame: CGRect(x: xPosition, y: 0, width: Double(self.view.frame.size.width), height: 200))
+                    imageView.image = businessImages[i]
+                    imageView.contentMode = UIViewContentMode.scaleAspectFill
+                    imageView.clipsToBounds = true
+                    cell.userPhotoScrollView.addSubview(imageView)
+                }
+                
+                cell.userPhotoScrollView.contentSize = CGSize(width: self.view.frame.size.width * 3, height: 200)
             }
-            
-            cell.userPhotoScrollView.contentSize = CGSize(width: self.view.frame.size.width * 3, height: 200)
-            
             
             return cell
         }
