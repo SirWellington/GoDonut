@@ -9,6 +9,8 @@
 import UIKit
 
 class ImagesCell: UITableViewCell {
+    
+    @IBOutlet weak var userPhotoScrollView: UIScrollView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

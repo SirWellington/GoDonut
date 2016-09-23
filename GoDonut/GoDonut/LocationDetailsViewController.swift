@@ -18,7 +18,7 @@ class LocationDetailsViewController: UITableViewController {
         operationQueue.maxConcurrentOperationCount = 10
         return operationQueue
     }()
-    
+        
     // Review array
     var reviews: [Review] = []
     
@@ -56,7 +56,7 @@ class LocationDetailsViewController: UITableViewController {
         locationManager.requestWhenInUseAuthorization()
         
         reload()
-
+        
     }
     
     func reload() {
@@ -114,9 +114,33 @@ class LocationDetailsViewController: UITableViewController {
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ImagesCell", for: indexPath) as! ImagesCell
             
+            // Add location images
+            cell.userPhotoScrollView.isPagingEnabled = true
+            cell.userPhotoScrollView.alwaysBounceVertical = false
+            for i in (0...2) {
+                let xPosition = Double(i) * Double(self.view.frame.size.width)
+                let imageView = UIImageView(frame: CGRect(x: xPosition, y: 0, width: Double(self.view.frame.size.width), height: 200))
+                imageView.image = #imageLiteral(resourceName: "example")
+                imageView.contentMode = UIViewContentMode.scaleAspectFill
+                imageView.clipsToBounds = true
+                cell.userPhotoScrollView.addSubview(imageView)
+            }
+            
+            cell.userPhotoScrollView.contentSize = CGSize(width: self.view.frame.size.width * 3, height: 200)
+            
+            
             return cell
         }
 
+    }
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if indexPath.section == 0 {
+            return nil
+        } else {
+            return indexPath
+        }
+        
     }
     
     
@@ -142,6 +166,10 @@ class LocationDetailsViewController: UITableViewController {
         let shareSheet = UIActivityViewController(activityItems: activities, applicationActivities: nil)
         
         present(shareSheet, animated: true, completion: nil)
+    }
+    
+    func setupScrollView() {
+        
     }
 
 }
@@ -189,6 +217,8 @@ extension LocationDetailsViewController: MKMapViewDelegate {
         
         return nil
     }
+    
+    
 
 }
 

@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -91,10 +90,10 @@
                         </mapView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReviewCell" rowHeight="80" id="mvt-xi-pO3" customClass="ReviewCell" customModule="GoDonut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="256" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="255.5" width="375" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mvt-xi-pO3" id="trR-au-fYv">
-                                    <frame key="frameInset" width="375" height="79"/>
+                                    <frame key="frameInset" width="375" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZFg-Sm-OAV">
@@ -124,26 +123,15 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImagesCell" rowHeight="200" id="h5C-Vn-zF2" customClass="ImagesCell" customModule="GoDonut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="336" width="375" height="200"/>
+                                <rect key="frame" x="0.0" y="335.5" width="375" height="200"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h5C-Vn-zF2" id="3M0-Rh-PWg">
-                                    <frame key="frameInset" width="375" height="199"/>
+                                    <frame key="frameInset" width="375" height="199.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZh-Di-lLN">
-                                            <frame key="frameInset" width="375" height="199"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="86k-9s-C2K">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="199"/>
-                                                    <color key="backgroundColor" red="1" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                </view>
-                                            </subviews>
+                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZh-Di-lLN">
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="86k-9s-C2K" secondAttribute="trailing" id="044-wM-E0c"/>
-                                                <constraint firstItem="86k-9s-C2K" firstAttribute="width" secondItem="nZh-Di-lLN" secondAttribute="width" multiplier="3" id="KAu-aq-bRC"/>
-                                                <constraint firstItem="86k-9s-C2K" firstAttribute="top" secondItem="nZh-Di-lLN" secondAttribute="top" id="QPU-Qa-YHL"/>
-                                                <constraint firstAttribute="bottom" secondItem="86k-9s-C2K" secondAttribute="bottom" id="Sxy-bp-CFk"/>
-                                                <constraint firstItem="86k-9s-C2K" firstAttribute="leading" secondItem="nZh-Di-lLN" secondAttribute="leading" id="dL0-ZA-mDf"/>
+                                                <constraint firstAttribute="height" constant="200" id="kHT-J5-gec"/>
                                             </constraints>
                                         </scrollView>
                                     </subviews>
@@ -154,6 +142,9 @@
                                         <constraint firstAttribute="bottom" secondItem="nZh-Di-lLN" secondAttribute="bottom" id="ZsH-f6-QhU"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="userPhotoScrollView" destination="nZh-Di-lLN" id="Yiw-WB-zRh"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
