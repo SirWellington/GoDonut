@@ -18,8 +18,11 @@ class AllLocationsViewController: UITableViewController {
         return operationQueue
     }()
     
-    // Custom Spinner
-    var customView: UIView!
+    // Custom Reloading Spinner
+    var refreshLoadingView: UIView!
+    var donutSpinner: UIImageView!
+    //var isRefreshIconsOverlap = false
+    var isRefreshingAnimating = false
     
     var locationManager: CLLocationManager?
     var currentLocation: CLLocation?
@@ -42,13 +45,13 @@ class AllLocationsViewController: UITableViewController {
         locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         locationManager?.requestWhenInUseAuthorization()
         
-        // Setup Refresh Control
-        refreshControl = UIRefreshControl()
-        refreshControl?.backgroundColor = UIColor(red: 0.878, green: 0.871, blue: 0.914, alpha: 1.000)
-        refreshControl?.tintColor = UIColor.white
-        refreshControl?.addTarget(self, action: #selector(self.reload), for: .valueChanged)
+        setupRefreshControl()
         
-        loadCustomRefreshContents()
+//        // Setup Refresh Control
+//        refreshControl = UIRefreshControl()
+//        refreshControl?.backgroundColor = UIColor(red: 0.878, green: 0.871, blue: 0.914, alpha: 1.000)
+//        refreshControl?.tintColor = UIColor.white
+//        refreshControl?.addTarget(self, action: #selector(self.reload), for: .valueChanged)
         
         // Setup TableView
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -57,6 +60,84 @@ class AllLocationsViewController: UITableViewController {
         //reload()
         
     }
+    
+    // MARK: - Custom Refresh Controll
+    // Setup initial views
+    
+    func setupRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshLoadingView = UIView(frame: self.refreshControl!.bounds)
+        refreshLoadingView.backgroundColor = UIColor.clear
+        refreshControl?.backgroundColor = UIColor(red: 0.878, green: 0.871, blue: 0.914, alpha: 1.000)
+        
+        self.donutSpinner = UIImageView(image: #imageLiteral(resourceName: "donut-spinner"))
+        self.refreshLoadingView.addSubview(donutSpinner)
+        self.refreshLoadingView.clipsToBounds = true
+        
+        self.refreshControl?.addSubview(refreshLoadingView)
+        
+        refreshControl?.tintColor = UIColor.clear
+        
+        self.isRefreshingAnimating = false
+        //self.isRefreshIconsOverlap = false
+        
+        refreshControl?.addTarget(self, action: #selector(self.reload), for: .valueChanged)
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //let reFreshWidth = self.tableView.frame.width
+        var refreshBounds = self.refreshControl!.bounds
+        let pullDistance = max(0.0, -self.refreshControl!.frame.origin.y)
+        let midX = self.tableView.frame.size.width / 2.0
+        let donutHeight = self.donutSpinner.bounds.size.height
+        let halfDonutHeight = donutHeight / 2
+        
+        var pullRatio = min( max(pullDistance, 0.0), 100.0) / 100.0
+        
+        var spinnerY = pullDistance / 2 - halfDonutHeight
+        var spinnerX = midX - halfDonutHeight
+        
+        var spinnerFrame = self.donutSpinner.frame
+        spinnerFrame.origin.x = spinnerX
+        spinnerFrame.origin.y = spinnerY
+        
+        self.donutSpinner.frame = spinnerFrame
+        
+        refreshBounds.size.height = pullDistance
+        self.refreshLoadingView.frame = refreshBounds
+        
+        if (self.refreshControl!.isRefreshing && !self.isRefreshingAnimating) {
+            animateRefreshView()
+        }
+    }
+    
+    func animateRefreshView() {
+        
+        self.isRefreshingAnimating = true
+        
+        UIView.animate(
+            withDuration: Double(0.3),
+            delay: Double(0.0),
+            options: UIViewAnimationOptions.curveLinear,
+            animations: {
+                // Rotate the spinner by M_PI_2 = PI/2 = 90 degrees
+                self.donutSpinner.transform = self.donutSpinner.transform.rotated(by: CGFloat(M_PI_2))
+            },
+            completion: { finished in
+                // If still refreshing, keep spinning, else reset
+                if (self.refreshControl!.isRefreshing) {
+                    self.animateRefreshView()
+                }else {
+                    self.resetAnimation()
+                }
+            }
+        )
+    }
+    
+    func resetAnimation() {
+        self.isRefreshingAnimating = false
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -89,6 +170,11 @@ class AllLocationsViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedBusiness = businesses[indexPath.row]
+        performSegue(withIdentifier: "ShowDetail", sender: selectedBusiness)
+    }
+    
     func reload() {
         print("reload called")
         
@@ -119,31 +205,20 @@ class AllLocationsViewController: UITableViewController {
         return nil
     }
     
-    func convertToGrayScale(image: UIImage) -> UIImage {
-        //let imageRect:CGRect = CGRectMake(0, 0, image.size.width, image.size.height)
-        let imageRect:CGRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
-        let colorSpace = CGColorSpaceCreateDeviceGray()
-        let width = image.size.width
-        let height = image.size.height
-        
-        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue)
-        let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
-        context?.draw(image.cgImage!, in: imageRect)
-        //CGContextDrawImage(context, imageRect, image.cgImage)
-        let imageRef = context!.makeImage()
-        let newImage = UIImage(cgImage: imageRef!)
-        
-        return newImage
-    }
     
-    func loadCustomRefreshContents() {
-        let refreshContents = Bundle.main.loadNibNamed("RefreshContents", owner: self, options: nil)
-        customView = refreshContents?[0] as! UIView
-        customView.frame = (refreshControl?.bounds)!
-        refreshControl?.addSubview(customView)
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowDetail" {
+            let businessDetailVC = segue.destination as! LocationDetailsViewController
+            businessDetailVC.selectedBusiness = (sender as! Business)
+            
+        }
     }
     
 }
+
+
 
 extension AllLocationsViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
