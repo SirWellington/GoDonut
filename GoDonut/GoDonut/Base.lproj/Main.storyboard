@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -122,12 +123,36 @@
                                     <outlet property="userLabel" destination="ZFg-Sm-OAV" id="8f4-AW-7MB"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImagesCell" id="h5C-Vn-zF2" customClass="ImagesCell" customModule="GoDonut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="336" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImagesCell" rowHeight="200" id="h5C-Vn-zF2" customClass="ImagesCell" customModule="GoDonut" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="336" width="375" height="200"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h5C-Vn-zF2" id="3M0-Rh-PWg">
-                                    <frame key="frameInset" width="375" height="43"/>
+                                    <frame key="frameInset" width="375" height="199"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZh-Di-lLN">
+                                            <frame key="frameInset" width="375" height="199"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="86k-9s-C2K">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="199"/>
+                                                    <color key="backgroundColor" red="1" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="86k-9s-C2K" secondAttribute="trailing" id="044-wM-E0c"/>
+                                                <constraint firstItem="86k-9s-C2K" firstAttribute="width" secondItem="nZh-Di-lLN" secondAttribute="width" multiplier="3" id="KAu-aq-bRC"/>
+                                                <constraint firstItem="86k-9s-C2K" firstAttribute="top" secondItem="nZh-Di-lLN" secondAttribute="top" id="QPU-Qa-YHL"/>
+                                                <constraint firstAttribute="bottom" secondItem="86k-9s-C2K" secondAttribute="bottom" id="Sxy-bp-CFk"/>
+                                                <constraint firstItem="86k-9s-C2K" firstAttribute="leading" secondItem="nZh-Di-lLN" secondAttribute="leading" id="dL0-ZA-mDf"/>
+                                            </constraints>
+                                        </scrollView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="nZh-Di-lLN" firstAttribute="leading" secondItem="3M0-Rh-PWg" secondAttribute="leading" id="D31-Rh-Ufd"/>
+                                        <constraint firstAttribute="trailing" secondItem="nZh-Di-lLN" secondAttribute="trailing" id="MPg-H0-Hqh"/>
+                                        <constraint firstItem="nZh-Di-lLN" firstAttribute="top" secondItem="3M0-Rh-PWg" secondAttribute="top" id="S8N-Ae-tHC"/>
+                                        <constraint firstAttribute="bottom" secondItem="nZh-Di-lLN" secondAttribute="bottom" id="ZsH-f6-QhU"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>

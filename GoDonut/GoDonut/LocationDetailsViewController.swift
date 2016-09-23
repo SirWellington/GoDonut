@@ -95,7 +95,7 @@ class LocationDetailsViewController: UITableViewController {
         if section == 0 {
             return reviews.count
         } else {
-            return 0
+            return 1
         }
     }
 
@@ -112,7 +112,7 @@ class LocationDetailsViewController: UITableViewController {
         }
         
         else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath) as! ImagesCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ImagesCell", for: indexPath) as! ImagesCell
             
             return cell
         }
