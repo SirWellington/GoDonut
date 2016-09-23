@@ -21,7 +21,7 @@ class AllLocationsViewController: UITableViewController {
     // Custom Reloading Spinner
     var refreshLoadingView: UIView!
     var donutSpinner: UIImageView!
-    var isRefreshIconsOverlap = false
+    //var isRefreshIconsOverlap = false
     var isRefreshingAnimating = false
     
     var locationManager: CLLocationManager?
@@ -79,7 +79,7 @@ class AllLocationsViewController: UITableViewController {
         refreshControl?.tintColor = UIColor.clear
         
         self.isRefreshingAnimating = false
-        self.isRefreshIconsOverlap = false
+        //self.isRefreshIconsOverlap = false
         
         refreshControl?.addTarget(self, action: #selector(self.reload), for: .valueChanged)
     }
@@ -106,7 +106,38 @@ class AllLocationsViewController: UITableViewController {
         refreshBounds.size.height = pullDistance
         self.refreshLoadingView.frame = refreshBounds
         
+        if (self.refreshControl!.isRefreshing && !self.isRefreshingAnimating) {
+            animateRefreshView()
+        }
     }
+    
+    func animateRefreshView() {
+        
+        self.isRefreshingAnimating = true
+        
+        UIView.animate(
+            withDuration: Double(0.3),
+            delay: Double(0.0),
+            options: UIViewAnimationOptions.curveLinear,
+            animations: {
+                // Rotate the spinner by M_PI_2 = PI/2 = 90 degrees
+                self.donutSpinner.transform = self.donutSpinner.transform.rotated(by: CGFloat(M_PI_2))
+            },
+            completion: { finished in
+                // If still refreshing, keep spinning, else reset
+                if (self.refreshControl!.isRefreshing) {
+                    self.animateRefreshView()
+                }else {
+                    self.resetAnimation()
+                }
+            }
+        )
+    }
+    
+    func resetAnimation() {
+        self.isRefreshingAnimating = false
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
