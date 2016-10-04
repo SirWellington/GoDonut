@@ -6,6 +6,7 @@
 //  Copyright © 2016 Brandon Ballentine. All rights reserved.
 //
 
+
 import UIKit
 import MapKit
 import CoreLocation
@@ -57,7 +58,6 @@ class LocationDetailsViewController: UITableViewController {
         locationManager.requestWhenInUseAuthorization()
         
         reload()
-        
     }
     
     func reload() {
